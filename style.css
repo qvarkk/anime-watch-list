@@ -1,0 +1,20 @@
+.show-anime {
+  width: 900px;
+  height: 500px;
+  margin: 50px auto;
+  color: #fff;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  gap: 5px;
+  padding: 5px;
+}
+
+.anime-card {
+  width: 200px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  color: #000;
+}
