@@ -1,1 +1,1 @@
-# anime-wetch-list
+# anime-watch-list
