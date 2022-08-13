@@ -1,14 +1,21 @@
 :root {
-  --color-50: #f5f3ff;
-  --color-100: #ede9fe;
-  --color-200: #ddd6fe;
-  --color-300: #c4b5fd;
-  --color-400: #a78bfa;
-  --color-500: #8b5cf6;
-  --color-600: #7c3aed;
-  --color-700: #6d28d9;
-  --color-800: #5b21b6;
-  --color-900: #4c1d95;
+  --color-50: #fafafa;
+  --color-100: #f4f4f5;
+  --color-200: #e4e4e7;
+  --color-300: #d4d4d8;
+  --color-400: #a1a1aa;
+  --color-500: #71717a;
+  --color-600: #52525b;
+  --color-700: #3f3f46;
+  --color-800: #27272a;
+  --color-900: #18181b;
+  --color-990: #141414;
+
+  --fs-300: 1rem;
+  --fs-400: 1.25rem;
+  --fs-500: 1.5rem;
+  --fs-600: 1.75rem;
+  --fs-700: 2rem;
 }
 
 *,
@@ -18,7 +25,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  color: ;
+  color: var(--color-990);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 a {
@@ -26,23 +38,74 @@ a {
   text-decoration: none;
 }
 
-.show-anime {
-  width: 900px;
-  height: 500px;
-  margin: 50px auto;
-  color: #fff;
-  background-color: #000;
+/*End "global styles", idk how this called 
+  Header Start*/
+
+.box {
   display: flex;
-  align-items: center;
-  font-size: 25px;
-  gap: 5px;
-  padding: 5px;
+  flex-flow: column;
+  height: 100%;
 }
 
-.anime-card {
-  width: 200px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 15px;
-  color: #000;
+.header {
+  width: 100vw;
+  flex: 0 1 70px;
+  background-color: var(--color-50);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.header-container {
+  max-width: 1250px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-container > a {
+  margin-left: 15px;
+}
+
+/*Header End
+  Main Start */
+
+.main {
+  flex: 1 1 auto;
+  background-color: var(--color-200);
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-title {
+  width: fit-content;
+  padding: 5px 20px;
+  background-color: transparent;
+  border: none;
+  font-size: var(--fs-400);
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.new-title:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+.new-title:active {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.titles-grid {
+  display: grid;
+  grid-template: repeat(auto-fit, minmax(200px, 1fr)) / repeat(
+      auto-fit,
+      minmax(200px, 1fr)
+    );
 }
