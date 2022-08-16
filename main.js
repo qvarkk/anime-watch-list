@@ -4,6 +4,7 @@ const animeCard = document.querySelector("#feed");
 animeCard.remove();
 animeCard.removeAttribute("id");
 
+// Object constructor
 let myList = [];
 function Anime(title, status, epWatched, epAll, notes) {
   this.title = title;
@@ -13,38 +14,27 @@ function Anime(title, status, epWatched, epAll, notes) {
   this.notes = notes;
 }
 
-function addAnimeToList() {
-  let title = prompt("title");
-  let status = prompt("status");
-  let epWatched = prompt("epWatched");
-  let epAll = prompt("epAll");
-  let notes = prompt("notes");
-
-  let newAnime = new Anime(title, status, epWatched, epAll, notes);
-  myList.push(newAnime);
-}
-
-let anime1 = new Anime("haru", "fin", "12", "12", "slicky");
-let anime2 = new Anime("natsu", "watch", "9", "24", "hot");
-let anime3 = new Anime("aki", "hold", "0", "12", "not yet");
-let anime4 = new Anime("fuyu", "hold", "0", "69", "not yet");
-let anime5 = new Anime("mata haru", "hold", "0", "420", "not yet");
-let anime6 = new Anime("mata natsu", "hold", "0", "42", "not yet");
-myList.push(anime1, anime2, anime3, anime4, anime5, anime6);
-
+// Title section
+// Variables
 const cardsGrid = document.querySelector("#titlesGrid");
+let statusDiv;
+let statusPara;
+let namePara;
+let epPara;
+let notesPara;
 
-function loadTitleToGrid(name, status, epN, epA, notes) {
+// Functions
+function createGridCard(name, status, epN, epA, notes) {
   cardsGrid.insertBefore(
     animeCard.cloneNode(true),
     document.querySelector(".title-card")
   );
 
-  let statusDiv = document.querySelectorAll("#statusDiv")[0];
-  let statusPara = document.querySelectorAll("#statusPara")[0];
-  let namePara = document.querySelectorAll("#titlePara")[0];
-  let epPara = document.querySelectorAll("#epPara")[0];
-  let notesPara = document.querySelectorAll("#notesPara")[0];
+  statusDiv = document.querySelectorAll("#statusDiv")[0];
+  statusPara = document.querySelectorAll("#statusPara")[0];
+  namePara = document.querySelectorAll("#titlePara")[0];
+  epPara = document.querySelectorAll("#epPara")[0];
+  notesPara = document.querySelectorAll("#notesPara")[0];
 
   // Changing tiles inners according to form
   if (status === "hold") {
@@ -68,12 +58,74 @@ function loadTitleToGrid(name, status, epN, epA, notes) {
   notesPara.textContent = notes;
 }
 
-for (anime of myList) {
-  loadTitleToGrid(
-    anime.title,
-    anime.status,
-    anime.epWatched,
-    anime.epAll,
-    anime.notes
+function reloadCardsGrid() {
+  let allCards = document.querySelectorAll(".title-card");
+  for (card of allCards) {
+    card.remove();
+    console.log(`removed ${card}`);
+  }
+  for (anime of myList) {
+    createGridCard(
+      anime.title,
+      anime.status,
+      anime.epWatched,
+      anime.epAll,
+      anime.notes
+    );
+  }
+}
+reloadCardsGrid();
+
+// Modal and form section
+// Modal variables
+const addAnimeBtn = document.querySelector("#addTitleBtn");
+const addAnimeModal = document.querySelector("#modal");
+const overlay = document.querySelector("#overlay");
+// Form variables
+const addAnimeForm = document.querySelector("#addTitleForm");
+const nameFormInput = document.querySelector("#nameFormInput");
+const epNowFormInput = document.querySelector("#epNowFormInput");
+const epAllFormInput = document.querySelector("#epAllFormInput");
+const notesFormInput = document.querySelector("#notesFormInput");
+const watchingFormInput = document.querySelector("#watchingFormInput");
+const submitFormBtn = document.querySelector("#submitTitleButton");
+
+// Modal events
+addAnimeBtn.addEventListener("click", () => {
+  addAnimeForm.reset();
+  addAnimeModal.classList.remove("inactive");
+  overlay.classList.remove("inactive");
+});
+
+overlay.addEventListener("click", () => {
+  addAnimeModal.classList.add("inactive");
+  overlay.classList.add("inactive");
+});
+
+// Form events
+addAnimeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addAnimeToList();
+  addAnimeModal.classList.add("inactive");
+  overlay.classList.add("inactive");
+});
+
+function addAnimeToList() {
+  let status;
+  if (epNowFormInput.value === epAllFormInput.value) {
+    status = "fin";
+  } else if (watchingFormInput.checked === true) {
+    status = "watch";
+  } else {
+    status = "hold";
+  }
+  let newAnime = new Anime(
+    nameFormInput.value,
+    status,
+    epNowFormInput.value,
+    epAllFormInput.value,
+    notesFormInput.value
   );
+  myList.push(newAnime);
+  reloadCardsGrid();
 }
