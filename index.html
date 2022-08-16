@@ -46,13 +46,13 @@
       </div>
       <div class="card-buttons">
         <button class="plus-ep" id="addEpBtn">&plus;Episode</button>
-        <button class="minus-ep" id="subEpBtn">&minus;Episode</button>
+        <button class="whitch-hold" id="switchHoldBtn">Switch Hold</button>
         <button class="remove" id="remTitleBtn">Remove</button>
       </div>
     </div>
     <!-- JS will popup this on add title button click -->
-    <div class="modal active">
-      <form action="" class="add-title-form">
+    <div class="modal inactive" id="modal">
+      <form class="add-title-form" id="addTitleForm">
         <h3>New Title</h3>
         <input
           type="text"
@@ -102,11 +102,11 @@
             checked
           />
         </div>
-        <button class="submit-button" id="submitTitleButton">
+        <button type="submit" class="submit-button" id="submitTitleButton">
           <label for="submitTitleButton">Add Title</label>
         </button>
       </form>
     </div>
-    <div class="overlay active" id="overlay"></div>
+    <div class="overlay inactive" id="overlay"></div>
   </body>
 </html>
