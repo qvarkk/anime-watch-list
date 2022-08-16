@@ -127,9 +127,9 @@ input::-webkit-inner-spin-button {
   height: 100%;
   display: grid;
   gap: 15px;
-  grid-template: repeat(auto-fit, minmax(275px, 1fr)) / repeat(
+  grid-template: repeat(auto-fit, minmax(275px, 300px)) / repeat(
       auto-fit,
-      minmax(225px, 1fr)
+      minmax(225px, 300px)
     );
 }
 
@@ -301,4 +301,8 @@ input::-webkit-inner-spin-button {
 
 .card-buttons > button:active {
   box-shadow: inset 50px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.inactive {
+  display: none;
 }
