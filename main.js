@@ -1,10 +1,10 @@
-// I don't know easier way to save html built element to js,
-// so it just takes the div and removes it on load
+// !!! MAKE ELEMENT WITH JS NOT WITH HTML !!!
 const animeCard = document.querySelector("#feed");
 animeCard.remove();
 animeCard.removeAttribute("id");
+// !!! MAKE ELEMENT WITH JS NOT WITH HTML !!!
 
-// Object constructor
+// Object constructor for animes
 let myList = [];
 function Anime(title, status, epWatched, epAll, notes) {
   this.title = title;
@@ -62,7 +62,6 @@ function reloadCardsGrid() {
   let allCards = document.querySelectorAll(".title-card");
   for (card of allCards) {
     card.remove();
-    console.log(`removed ${card}`);
   }
   for (anime of myList) {
     createGridCard(
@@ -73,7 +72,10 @@ function reloadCardsGrid() {
       anime.notes
     );
   }
+  // refreshButtonsActions();
 }
+// Useless for now but if some of cards
+// are in memory (future feature) it will load them on start up
 reloadCardsGrid();
 
 // Modal and form section
@@ -90,26 +92,30 @@ const notesFormInput = document.querySelector("#notesFormInput");
 const watchingFormInput = document.querySelector("#watchingFormInput");
 const submitFormBtn = document.querySelector("#submitTitleButton");
 
-// Modal events
-addAnimeBtn.addEventListener("click", () => {
+// Modal and form functions for events
+function addAnime() {
   addAnimeForm.reset();
   addAnimeModal.classList.remove("inactive");
   overlay.classList.remove("inactive");
-});
+}
 
-overlay.addEventListener("click", () => {
+function closeOverlay() {
   addAnimeModal.classList.add("inactive");
   overlay.classList.add("inactive");
-});
+}
 
-// Form events
-addAnimeForm.addEventListener("submit", (e) => {
+function submitNewAnime(e) {
   e.preventDefault();
   addAnimeToList();
   addAnimeModal.classList.add("inactive");
   overlay.classList.add("inactive");
-});
+}
 
+addAnimeBtn.onclick = addAnime;
+overlay.onclick = closeOverlay;
+addAnimeForm.onsubmit = submitNewAnime;
+
+// Form function
 function addAnimeToList() {
   let status;
   if (epNowFormInput.value === epAllFormInput.value) {
@@ -128,4 +134,63 @@ function addAnimeToList() {
   );
   myList.push(newAnime);
   reloadCardsGrid();
+  refreshButtonsActions();
 }
+
+// Cards buttons section
+let addEpisodeBtn;
+let switchHoldBtn;
+let removeAnimeBtn;
+let allCards;
+
+// Buttons functions for events
+// A bit inconsistent and confusing code but I have no idea how to solve this problem another way
+function refreshButtonsActions() {
+  addEpisodeBtn = document.querySelectorAll("#addEpBtn");
+  switchHoldBtn = document.querySelectorAll("#switchHoldBtn");
+  removeAnimeBtn = document.querySelectorAll("#remTitleBtn");
+  allCards = document.querySelectorAll(".title-card");
+
+  for (let i = 0; i < addEpisodeBtn.length; i++) {
+    addEpisodeBtn[i].addEventListener("click", () => {
+      if (
+        myList[myList.length - 1 - i].epWatched ===
+        myList[myList.length - 1 - i].epAll
+      ) {
+        return;
+      } else {
+        myList[myList.length - 1 - i].epWatched =
+          parseInt(myList[myList.length - 1 - i].epWatched) + 1;
+        reloadCardsGrid();
+        refreshButtonsActions();
+      }
+    });
+  }
+
+  for (let i = 0; i < switchHoldBtn.length; i++) {
+    switchHoldBtn[i].addEventListener("click", () => {
+      if (myList[myList.length - 1 - i].status === "fin") {
+        return;
+      } else if (myList[myList.length - 1 - i].status === "watch") {
+        myList[myList.length - 1 - i].status = "hold";
+        reloadCardsGrid();
+        refreshButtonsActions();
+      } else if (myList[myList.length - 1 - i].status === "hold") {
+        myList[myList.length - 1 - i].status = "watch";
+        reloadCardsGrid();
+        refreshButtonsActions();
+      }
+    });
+  }
+
+  for (let i = 0; i < removeAnimeBtn.length; i++) {
+    removeAnimeBtn[i].addEventListener("click", () => {
+      allCards[allCards.length - 1 - i].remove();
+      myList.splice(myList.length - 1 - i, 1);
+      reloadCardsGrid();
+      refreshButtonsActions();
+    });
+  }
+}
+// As well does nothing now but later will be helpful
+refreshButtonsActions();
