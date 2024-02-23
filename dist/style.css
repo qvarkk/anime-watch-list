@@ -1,0 +1,317 @@
+:root {
+  --color-50: #fafafa;
+  --color-100: #f4f4f5;
+  --color-150: #f1f1f7;
+  --color-200: #e4e4e7;
+  --color-300: #d4d4d8;
+  --color-400: #a1a1aa;
+  --color-500: #71717a;
+  --color-600: #52525b;
+  --color-700: #3f3f46;
+  --color-800: #27272a;
+  --color-900: #18181b;
+  --color-990: #141414;
+  --color-hold: var(--color-300);
+  --color-watch: #bef264;
+  --color-fin: #d8b4fe;
+  --color-remove: #fca5a5;
+
+  --fs-300: 1rem;
+  --fs-400: 1.25rem;
+  --fs-500: 1.5rem;
+  --fs-600: 1.75rem;
+  --fs-700: 2rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  color: var(--color-990);
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+  background-color: var(--color-200);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/*End "global styles", idk how this called 
+
+  Header Start*/
+
+.box {
+  display: flex;
+  flex-flow: column;
+}
+
+.header {
+  width: 100vw;
+  flex: 0 1 70px;
+  background-color: var(--color-50);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.header-container {
+  max-width: 1250px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-container > a {
+  margin-left: 15px;
+}
+
+/*Header End
+
+  Main Start */
+
+.main {
+  flex: 1 1 auto;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-title {
+  width: fit-content;
+  padding: 5px 20px;
+  background-color: transparent;
+  border: none;
+  font-size: var(--fs-400);
+  font-weight: 600;
+  border-radius: 20px;
+  margin: 0 0 20px 0;
+}
+
+.new-title:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+.new-title:active {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.titles-grid {
+  place-items: stretch stretch;
+  padding: 15px;
+  width: 100%;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-content: center;
+}
+
+/* This form will popup on .new-title button click and ask to fill a form */
+
+.modal {
+  position: fixed;
+  z-index: 3;
+  left: calc(50% - 150px);
+  bottom: calc(50% - 50px);
+  background-color: var(--color-100);
+  border-radius: 20px;
+  width: 300px;
+  padding: 15px;
+}
+
+.add-title-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-title-form > input {
+  height: 2.5em;
+  border: none;
+  border-radius: 7px;
+  background-color: var(--color-200);
+  padding: 0 10px 0 10px;
+  font-size: var(--fs-300);
+}
+
+.episodes-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.episodes-input > input {
+  width: 66px;
+  height: 2.5em;
+  border: none;
+  border-radius: 7px;
+  background-color: var(--color-200);
+  padding: 0 10px 0 10px;
+  font-size: var(--fs-300);
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.ep-text {
+  font-weight: 500;
+  font-size: var(--fs-400);
+}
+
+.checkbox-holder {
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button {
+  font-size: var(--fs-300);
+  font-weight: 500;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color-watch);
+}
+
+.submit-button:hover {
+  box-shadow: inset 50px 50px 50px rgba(0, 0, 0, 0.06);
+}
+
+.submit-button:active {
+  box-shadow: inset 50px 50px 50px rgba(0, 0, 0, 0.15);
+}
+
+.overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Card Styles (cards appearing with js) */
+
+.title-card {
+  background-color: var(--color-50);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.17);
+  position: relative;
+  padding: 28px 10px 15px 10px;
+  line-height: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.card-status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  background-color: var(--color-accent);
+  text-align: center;
+  font-weight: 500;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hold {
+  background-color: var(--color-hold);
+}
+
+.watch {
+  background-color: var(--color-watch);
+}
+
+.fin {
+  background-color: var(--color-fin);
+}
+
+.card-paras {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-paras > p {
+  font-size: var(--fs-400);
+  font-weight: 500;
+}
+
+.card-buttons {
+  width: 100%;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: stretch;
+  gap: 5px;
+}
+
+.card-buttons > button {
+  font-size: var(--fs-300);
+  font-weight: 500;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color-150);
+}
+
+.card-buttons > button:nth-child(3) {
+  background-color: var(--color-remove);
+}
+
+.card-buttons > button:hover {
+  box-shadow: inset 50px 50px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-buttons > button:active {
+  box-shadow: inset 50px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.inactive {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .titles-grid {
+    padding: 15px;
+    grid-template: repeat(auto-fit, 1fr)/ 1fr;
+  }
+
+  .main-container {
+    margin: 0;
+  }
+}
