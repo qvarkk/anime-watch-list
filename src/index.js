@@ -74,6 +74,7 @@ function refreshButtonsActions() {
         if (myList[index].epWatched == myList[index].epAll) {
           myList[index].status = "fin";
         }
+        saveList();
         reloadCardsGrid();
       }
     });
@@ -89,12 +90,14 @@ function refreshButtonsActions() {
           myList[index].status = "watch";
           break;
       }
+      saveList();
       reloadCardsGrid();
     });
 
     removeBtn.addEventListener("click", () => {
       card.remove();
       myList.splice(index, 1);
+      saveList();
       reloadCardsGrid();
     });
 
@@ -136,6 +139,7 @@ function addAnimeToList() {
     notesFormInput.value
   );
   myList.push(newAnime);
+  saveList();
   reloadCardsGrid();
 }
 
@@ -179,3 +183,21 @@ overlay.onclick = closeOverlay;
 addAnimeForm.onsubmit = submitNewAnime;
 
 //#endregion
+
+//#region localstorage_actions
+
+function saveList() {
+  let jStr = JSON.stringify(myList);
+  localStorage.setItem("list", jStr);
+}
+
+function loadList() {
+  if (localStorage.getItem("list") != null) {
+    myList = JSON.parse(localStorage.getItem("list"));
+  }
+}
+
+//#endregion
+
+loadList();
+reloadCardsGrid();
