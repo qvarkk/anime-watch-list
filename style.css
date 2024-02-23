@@ -172,6 +172,7 @@ input::-webkit-inner-spin-button {
   background-color: var(--color-200);
   padding: 0 10px 0 10px;
   font-size: var(--fs-300);
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
